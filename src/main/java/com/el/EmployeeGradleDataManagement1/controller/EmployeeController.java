@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class EmployeeController {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
@@ -16,22 +18,23 @@ public class EmployeeController {
         return "My controller works";
     }
     @GetMapping("/employees")
-    public <List> String fetchEmployeeList() {
+    public List<String> fetchEmployeeList() {
         LOGGER.info("Logger for fetchEmployees of EmployeeController");
-        return "My controller works";
+
+        return List.of();
     }
     @GetMapping("/employees/{id}")
-    public String fetchEmployeeById(@PathVariable("id") int id) {
+    public String fetchEmployeeById(@PathVariable("id") Long id) {
         LOGGER.info("Logger for fetchEmployeeById of EmployeeController");
         return "My controller works";
     }
     @PutMapping("/employees/{id}")
-    public String updateEmployee(@PathVariable("id") int id, @Valid @RequestBody Employee employee) {
+    public String updateEmployeeById(@PathVariable("id") Long id, @Valid @RequestBody Employee employee) {
         LOGGER.info("Logger for updateEmployee of EmployeeController");
         return "My controller works";
 }
 @DeleteMapping("/employees/{id}")
-public void deleteEmployee(@PathVariable("id") int id) {
+public void deleteEmployeeById(@PathVariable("id") Long id) {
         LOGGER.info("Logger for deleteEmployee of EmployeeController");
 
 }
