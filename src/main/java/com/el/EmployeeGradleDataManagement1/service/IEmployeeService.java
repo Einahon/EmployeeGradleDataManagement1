@@ -5,10 +5,11 @@ import com.el.EmployeeGradleDataManagement1.model.Employee;
 import java.util.List;
 
 public interface IEmployeeService {
-public String saveEmployee(Employee employee);
-public List<String> fetchEmployeeList();
-public String updateEmployeeById(Long id, Employee employee);
+
+public Employee saveEmployee(Employee employee);
+public List<Employee> fetchEmployeeList();
+public Employee updateEmployeeById(Long id, Employee employee);
 public void deleteEmployeeById(Long id);
-public String fetchEmployeeById(String id);
-public String fetchEmployeeByName(String name);
+public Employee fetchEmployeeById(Long id);
+public Employee fetchEmployeeByName(String name);
 }
