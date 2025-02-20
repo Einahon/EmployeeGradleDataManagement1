@@ -3,8 +3,6 @@ package com.el.EmployeeGradleDataManagement1.controller;
 import com.el.EmployeeGradleDataManagement1.error.EmployeeNotFoundException;
 import com.el.EmployeeGradleDataManagement1.model.Employee;
 import com.el.EmployeeGradleDataManagement1.service.IEmployeeService;
-import com.el.EmployeeGradleDataManagement1.service.impl.EmployeeService;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ public class EmployeeController {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
     @PostMapping("/employees")
-    public Employee saveEmployee(@Valid @RequestBody Employee employee ) {
+    public Employee saveEmployee(@RequestBody Employee employee ) {
         LOGGER.info("Logger for saveEmployee of EmployeeController");
         return employeeService.saveEmployee(employee);
     }
@@ -35,7 +33,7 @@ public class EmployeeController {
         return employeeService.fetchEmployeeById(id);
     }
     @PutMapping("/employees/{id}")
-    public Employee updateEmployeeById(@PathVariable("id") Long id, @Valid @RequestBody Employee employee) throws EmployeeNotFoundException {
+    public Employee updateEmployeeById(@PathVariable("id") Long id, @RequestBody Employee employee) throws EmployeeNotFoundException {
         LOGGER.info("Logger for updateEmployee of EmployeeController");
         return employeeService.updateEmployeeById(id, employee);
 }
