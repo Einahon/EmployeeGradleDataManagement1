@@ -44,7 +44,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void testSaveEmployee() {
+    void testSaveEmployee() throws IllegalAccessException {
         when(employeeRepository.save(mockEmployee)).thenReturn(mockEmployee);
 
         Employee savedEmployee = employeeService.saveEmployee(mockEmployee);
@@ -68,7 +68,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    void testUpdateEmployeeById() throws EmployeeNotFoundException {
+    void testUpdateEmployeeById() throws EmployeeNotFoundException, IllegalAccessException {
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(mockEmployee));
         when(employeeRepository.save(mockEmployee)).thenReturn(mockEmployee);
 
