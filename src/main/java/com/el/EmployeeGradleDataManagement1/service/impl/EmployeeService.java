@@ -103,13 +103,22 @@ public class EmployeeService implements IEmployeeService {
 
         List<String> missingFields = new ArrayList<>();
 
+        if (employee.getSalary() != null) {
+            BigDecimal minSalary = new BigDecimal("60000.00");
+            BigDecimal maxSalary = new BigDecimal("1000000.00");
+            if (employee.getSalary().intValue() < minSalary.intValue() || employee.getSalary().intValue() > maxSalary.intValue()) {
+                emptyFields.add("salary");
+            }
+        }
+        if (employee.getHireDate() != null && employee.getHireDate().isAfter(LocalDate.now())) {
+            emptyFields.add("hireDate");
+        }
+
         for (Field pojoField : pojoFields) {
             pojoField.setAccessible(true);
-
             if(pojoField.isAnnotationPresent(jakarta.persistence.Id.class)) {
                 continue;
             }
-
             try {
                 Field employeeField = employee.getClass().getDeclaredField(pojoField.getName());
                 System.out.println(employeeField.getName());
@@ -117,22 +126,10 @@ public class EmployeeService implements IEmployeeService {
 
                 Object value = employeeField.get(employee);
                 System.out.println(value);
-                if (employeeField.getName().equalsIgnoreCase("salary") && value != null) {
-                    BigDecimal minSalary = new BigDecimal("60000.00");
-                    BigDecimal maxSalary = new BigDecimal("1000000.00");
-                    if (employee.getSalary().intValue() < minSalary.intValue() || employee.getSalary().intValue() > maxSalary.intValue()) {
-                        emptyFields.add(pojoField.getName());
-                    }
-                }
-                if (employeeField.getName().equalsIgnoreCase("hireDate") && value !=null && employee.getHireDate().isAfter(LocalDate.now())) {
-                    emptyFields.add(pojoField.getName());
-               }
                 if (value == null || StringUtils.isBlank(value.toString())) {
                     emptyFields.add(pojoField.getName());
                 }
             } catch (NoSuchFieldException e) {
-                System.out.println(e.getMessage());
-                System.out.println(pojoField.getName());
                 missingFields.add(pojoField.getName());
             } catch (IllegalAccessException e) {
                 System.out.println( e.getClass()+ " " + e.getMessage());
@@ -142,7 +139,6 @@ public class EmployeeService implements IEmployeeService {
         if (!missingFields.isEmpty()) {
             emptyFields.addAll(missingFields);
         }
-
         return emptyFields;
     }
 }
