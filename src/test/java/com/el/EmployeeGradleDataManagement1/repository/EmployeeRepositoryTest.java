@@ -25,7 +25,7 @@ public class EmployeeRepositoryTest {
                 .email("Rob@yahoo.com")
                 .name("Robert Bob")
                 .jobTitle("QA")
-                .department("Tester")
+                .department("IT")
                 .hireDate(LocalDate.of(2010, 04, 10))
                 .build();
         entityManager.persist(employee);
